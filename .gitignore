@@ -1,0 +1,11 @@
+# env files
+.env
+
+# logs
+*.log
+
+# OS junk
+.DS_Store
+
+# node (just in case)
+node_modules/
