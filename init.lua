@@ -108,6 +108,27 @@ require("lazy").setup({
 		config = function()
 			vim.o.termguicolors = true
 			vim.cmd.colorscheme("gruvbox")
+
+			-- transparent background
+			vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+			vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+			vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+			vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
+
+			-- transparent diagnostic sign backgrounds
+			vim.api.nvim_set_hl(0, "DiagnosticSignError", { bg = "none" })
+			vim.api.nvim_set_hl(0, "DiagnosticSignWarn", { bg = "none" })
+			vim.api.nvim_set_hl(0, "DiagnosticSignInfo", { bg = "none" })
+			vim.api.nvim_set_hl(0, "DiagnosticSignHint", { bg = "none" })
+			vim.api.nvim_set_hl(0, "DiagnosticSignOk", { bg = "none" })
+
+			-- transparent gitsigns sign backgrounds
+			vim.api.nvim_set_hl(0, "GitSignsAdd", { bg = "none" })
+			vim.api.nvim_set_hl(0, "GitSignsChange", { bg = "none" })
+			vim.api.nvim_set_hl(0, "GitSignsDelete", { bg = "none" })
+			vim.api.nvim_set_hl(0, "GitSignsTopdelete", { bg = "none" })
+			vim.api.nvim_set_hl(0, "GitSignsChangedelete", { bg = "none" })
+			vim.api.nvim_set_hl(0, "GitSignsUntracked", { bg = "none" })
 		end,
 	},
 
@@ -116,6 +137,30 @@ require("lazy").setup({
 		"nvim-lualine/lualine.nvim",
 		config = function()
 			require("lualine").setup()
+		end,
+	},
+
+	-- file tree
+	{
+		"nvim-tree/nvim-tree.lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("nvim-tree").setup({
+				view = {
+					width = 35,
+				},
+				renderer = {
+					group_empty = true,
+				},
+				filters = {
+					dotfiles = false,
+				},
+				git = {
+					ignore = false,
+				},
+			})
+
+			vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<CR>")
 		end,
 	},
 
