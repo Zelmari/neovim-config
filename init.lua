@@ -285,6 +285,22 @@ require("lazy").setup({
 		end,
 	},
 
+	-- copilot
+	{
+		"github/copilot.vim",
+		config = function()
+			-- disable tab mapping
+			vim.g.copilot_no_tab_map = true
+
+			-- accept copilot suggestion with ctrl+l
+			vim.keymap.set("i", "<C-l>", 'copilot#Accept("\\<CR>")', {
+				expr = true,
+				replace_keycodes = false,
+				silent = true,
+			})
+		end,
+	},
+
 	-- formatting
 	{
 		"stevearc/conform.nvim",
