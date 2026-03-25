@@ -262,6 +262,10 @@ require("lazy").setup({
 			require("luasnip.loaders.from_vscode").lazy_load()
 
 			cmp.setup({
+				preselect = cmp.PreselectMode.None,
+				completion = {
+					completeopt = "menu,menuone,noselect",
+				},
 				snippet = {
 					expand = function(args)
 						luasnip.lsp_expand(args.body)
@@ -271,10 +275,12 @@ require("lazy").setup({
 					format = lspkind.cmp_format(),
 				},
 				mapping = cmp.mapping.preset.insert({
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<CR>"] = cmp.mapping.confirm({ select = false }),
 					["<C-n>"] = cmp.mapping.select_next_item(),
 					["<C-p>"] = cmp.mapping.select_prev_item(),
 					["<C-Space>"] = cmp.mapping.complete(),
+					["<Tab>"] = cmp.config.disable,
+					["<S-Tab>"] = cmp.config.disable,
 				}),
 				sources = {
 					{ name = "nvim_lsp" },
