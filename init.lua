@@ -168,22 +168,21 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = {
-					"rust",
-					"java",
-					"javascript",
-					"typescript",
-					"lua",
-					"python",
-					"go",
-					"html",
-					"css",
-				},
-				highlight = { enable = true },
-			})
-		end,
+		main = "nvim-treesitter",
+		opts = {
+			ensure_installed = {
+				"rust",
+				"java",
+				"javascript",
+				"typescript",
+				"lua",
+				"python",
+				"go",
+				"html",
+				"css",
+			},
+			highlight = { enable = true },
+		},
 	},
 
 	-- telescope
@@ -291,19 +290,18 @@ require("lazy").setup({
 		end,
 	},
 
-	-- copilot
+	-- codeium
 	{
-		"github/copilot.vim",
+		"Exafunction/codeium.vim",
+		event = "BufEnter",
 		config = function()
 			-- disable tab mapping
-			vim.g.copilot_no_tab_map = true
+			vim.g.codeium_no_map_tab = true
 
-			-- accept copilot suggestion with ctrl+l
-			vim.keymap.set("i", "<C-l>", 'copilot#Accept("\\<CR>")', {
-				expr = true,
-				replace_keycodes = false,
-				silent = true,
-			})
+			-- accept codeium suggestion with ctrl+l
+			vim.keymap.set("i", "<C-l>", function()
+				return vim.fn["codeium#Accept"]()
+			end, { expr = true, silent = true })
 		end,
 	},
 
