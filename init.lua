@@ -46,6 +46,14 @@ vim.o.timeoutlen = 300
 -- splits
 vim.o.splitright = true
 vim.o.splitbelow = true
+vim.o.equalalways = true
+
+-- keep splits equal on window resize
+vim.api.nvim_create_autocmd("VimResized", {
+	callback = function()
+		vim.cmd("wincmd =")
+	end,
+})
 
 -- substitutions
 vim.o.inccommand = "split"
@@ -398,6 +406,15 @@ require("lazy").setup({
 
 			vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm direction=float<CR>")
 			vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]])
+		end,
+	},
+
+	-- discord rich presence
+	{
+		"andweeb/presence.nvim",
+		event = "VimEnter",
+		config = function()
+			require("presence").setup()
 		end,
 	},
 })
